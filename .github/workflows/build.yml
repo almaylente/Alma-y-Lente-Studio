@@ -28,13 +28,17 @@ jobs:
           gradle-version: '8.9'
 
       - name: Preparar Android
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
+        with:
+          accept-android-sdk-licenses: true
+          log-accepted-android-sdk-licenses: false
+
+      - name: Instalar herramientas Android
+        run: |
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Extraer proyecto
-        run: |
-          unzip Alma_y_Lente_Studio_Android.zip
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        run: unzip Alma_y_Lente_Studio_Android.zip
 
       - name: Compilar APK
         run: |
